@@ -12,17 +12,14 @@ jobs:
         run: sudo apt-get install -y p7zip-full
 
       - name: Extract archive
-        run: 7z x "jninew reiji x kmonarch.zip" -o./jni_source
+        run: |
+          7z x "jninew reiji x kmonarch.zip" -o./jni_source
+          find ./jni_source -name "Android.mk" | head -20
 
       - name: Setup NDK
         uses: nttld/setup-ndk@v1
         with:
           ndk-version: r25c
-
-      - name: Build
-        run: |
-          cd jni_source/kmonarch
-          ndk-build
 
       - name: Upload .so
         uses: actions/upload-artifact@v4
