@@ -22,6 +22,7 @@ jobs:
       - name: Build
         run: |
           cd "jni_source/jninew reiji x kmonarch"
+          rm -rf obj/
           ndk-build
 
       - name: Upload .so
