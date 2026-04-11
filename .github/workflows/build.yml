@@ -12,7 +12,7 @@ jobs:
         run: sudo apt-get install -y p7zip-full
 
       - name: Extract archive
-        run: 7z x "jninew reiji x kmonarch.zip" -o./jni_source
+        run: unzip -q jni_plugin_edited.zip -d ./jni_source
 
       - name: Setup NDK
         uses: nttld/setup-ndk@v1
@@ -21,12 +21,11 @@ jobs:
 
       - name: Build
         run: |
-          cd "jni_source/jninew reiji x kmonarch"
-          rm -rf obj/
+          cd jni_source
           ndk-build
 
       - name: Upload .so
         uses: actions/upload-artifact@v4
         with:
           name: libplugin
-          path: "jni_source/jninew reiji x kmonarch/libs/"
+          path: jni_source/libs/
