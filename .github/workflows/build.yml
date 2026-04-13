@@ -12,12 +12,14 @@ jobs:
         run: sudo apt-get install -y p7zip-full
 
       - name: Extract archive
-        run: 7z x jni.zip
+        run: |
+          7z x "_Lildrugbio____vizirsstudio01____vizirsstudio.zip"
+          mv "@Lildrugbio & @vizirsstudio01 & @vizirsstudio" source
 
       - name: Clean old build artifacts
         run: |
-          rm -rf obj/
-          rm -rf libs/
+          rm -rf source/obj/
+          rm -rf source/libs/
 
       - name: Setup NDK
         uses: nttld/setup-ndk@v1
@@ -27,12 +29,12 @@ jobs:
       - name: Build
         run: |
           ndk-build \
-            NDK_PROJECT_PATH=. \
-            APP_BUILD_SCRIPT=jni/Android.mk \
-            NDK_APPLICATION_MK=jni/Application.mk
+            NDK_PROJECT_PATH=source \
+            APP_BUILD_SCRIPT=source/jni/Android.mk \
+            NDK_APPLICATION_MK=source/jni/Application.mk
 
       - name: Upload .so
         uses: actions/upload-artifact@v4
         with:
           name: libplugin
-          path: libs/
+          path: source/libs/
