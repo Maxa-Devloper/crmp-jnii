@@ -40,6 +40,12 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: libplugin
+          path: source/libs/            NDK_APPLICATION_MK=source/jni/Application.mk
+
+      - name: Upload .so
+        uses: actions/upload-artifact@v4
+        with:
+          name: libplugin
           path: source/libs/        uses: actions/upload-artifact@v4
         with:
           name: libplugin
