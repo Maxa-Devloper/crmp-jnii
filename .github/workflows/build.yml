@@ -14,6 +14,11 @@ jobs:
       - name: Extract archive
         run: 7z x jni.zip
 
+      - name: Clean old build artifacts
+        run: |
+          rm -rf obj/
+          rm -rf libs/
+
       - name: Setup NDK
         uses: nttld/setup-ndk@v1
         with:
