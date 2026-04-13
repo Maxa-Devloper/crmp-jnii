@@ -11,9 +11,12 @@ jobs:
       - name: Install 7zip
         run: sudo apt-get install -y p7zip-full
 
+      - name: Check files
+        run: ls -la
+
       - name: Extract archive
         run: |
-          7z x "_Lildrugbio____vizirsstudio01____vizirsstudio.zip"
+          7z x *.zip
           mv "@Lildrugbio & @vizirsstudio01 & @vizirsstudio" source
 
       - name: Clean old build artifacts
@@ -35,6 +38,9 @@ jobs:
 
       - name: Upload .so
         uses: actions/upload-artifact@v4
+        with:
+          name: libplugin
+          path: source/libs/        uses: actions/upload-artifact@v4
         with:
           name: libplugin
           path: source/libs/
