@@ -8,11 +8,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install tools
-        run: sudo apt-get install -y p7zip-full
-
       - name: Extract archive
-        run: unzip -q jni_plugin_edited.zip -d ./jni_source
+        run: unzip -q jni.zip
 
       - name: Setup NDK
         uses: nttld/setup-ndk@v1
@@ -21,11 +18,13 @@ jobs:
 
       - name: Build
         run: |
-          cd jni_source
-          ndk-build
+          ndk-build \
+            NDK_PROJECT_PATH=. \
+            APP_BUILD_SCRIPT=jni/Android.mk \
+            NDK_APPLICATION_MK=jni/Application.mk
 
       - name: Upload .so
         uses: actions/upload-artifact@v4
         with:
           name: libplugin
-          path: jni_source/libs/
+          path: libs/
