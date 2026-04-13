@@ -8,8 +8,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install 7zip
+        run: sudo apt-get install -y p7zip-full
+
       - name: Extract archive
-        run: unzip -q jni.zip
+        run: 7z x jni.zip
 
       - name: Setup NDK
         uses: nttld/setup-ndk@v1
